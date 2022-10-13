@@ -46,8 +46,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            WhyNotWin11*.exe
-            WhyNotWin11.zip
+            sampelcode*.exe
+            sampelcode.zip
             checksums.sha256
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
