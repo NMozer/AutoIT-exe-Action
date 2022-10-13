@@ -5,9 +5,9 @@
 #AutoIt3Wrapper_Res_Fileversion=1.3.0.0
 #AutoIt3Wrapper_Res_LegalCopyright=J. Zimmermann, Daimler AG, TF/VAS
 #AutoIt3Wrapper_Res_Language=1031
-#AutoIt3Wrapper_Run_Tidy=y
-#EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Run_Debug_Mode=n
+;#AutoIt3Wrapper_Run_Tidy=y
+;#EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
+;#AutoIt3Wrapper_Run_Debug_Mode=n
 #cs ----------------------------------------------------------------------------
 
 	AutoIt Version: 3.3.14.2
