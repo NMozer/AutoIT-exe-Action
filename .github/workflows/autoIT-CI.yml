@@ -1,6 +1,6 @@
 name: wnw11 # just a name, not really important
 
-on: [push, pull_request, workflow_dispatch] # runs workflow on: commit push, pull request and last options allows to trigger it manually
+on: [workflow_dispatch] # runs workflow on: commit push, pull request and last options allows to trigger it manually
 
 jobs:
   build:
