@@ -1,10 +1,10 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Icon=..\USBLogOn.ico
+;#AutoIt3Wrapper_Icon=..\USBLogOn.ico
 #AutoIt3Wrapper_Outfile=USBLogOn.exe
 #AutoIt3Wrapper_Res_Description=Background Task monitoring USB-Port
-#AutoIt3Wrapper_Res_Fileversion=1.3.0.0
-#AutoIt3Wrapper_Res_LegalCopyright=J. Zimmermann, Daimler AG, TF/VAS
-#AutoIt3Wrapper_Res_Language=1031
+;#AutoIt3Wrapper_Res_Fileversion=1.3.0.0
+;#AutoIt3Wrapper_Res_LegalCopyright=J. Zimmermann, Daimler AG, TF/VAS
+;#AutoIt3Wrapper_Res_Language=1031
 ;#AutoIt3Wrapper_Run_Tidy=y
 ;#EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 ;#AutoIt3Wrapper_Run_Debug_Mode=n
