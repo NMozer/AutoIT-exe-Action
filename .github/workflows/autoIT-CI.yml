@@ -1,0 +1,53 @@
+name: wnw11 # just a name, not really important
+
+on: [push, pull_request, workflow_dispatch] # runs workflow on: commit push, pull request and last options allows to trigger it manually
+
+jobs:
+  build:
+    runs-on: windows-2019 # specify windows version, windows-2019 and 2016 are available at the time of writing, latest uses latest available
+    steps:
+      - uses: actions/checkout@v2 # check outs repository under $GITHUB_WORKSPACE
+      - name: Cache tools
+        uses: actions/cache@v2 # cache paths specified below so they don't have to be redownloaded each time
+        id: cache
+        with:
+          path: |
+            autoit-v3-setup.exe
+            SciTE4AutoIt3.exe
+            C:\Program Files (x86)\AutoIt3\SciTE\Au3Stripper
+          key: v2 # cache key, simple change (for example to v3) to redownload, can also be used to roll back to older versions of downloaded programs
+      - name: Download tools
+        if: steps.cache.outputs.cache-hit != 'true' # downloads tools if they are not in cache
+        run: |
+          curl -sSfLO https://www.autoitscript.com/cgi-bin/getfile.pl?autoit3/autoit-v3-setup.exe `
+            -sSfLO https://www.autoitscript.com/cgi-bin/getfile.pl?../autoit3/scite/download/SciTE4AutoIt3.exe `
+            -sSfLO https://www.autoitscript.com/autoit3/scite/download/Au3Stripper.zip
+          Expand-Archive Au3Stripper.zip "${env:ProgramFiles(x86)}\AutoIt3\SciTE\Au3Stripper"
+      - name: Install tools # self explanatory, installs tools
+        run: |
+          Start-Process autoit-v3-setup.exe -ArgumentList /S -NoNewWindow -Wait
+          Start-Process SciTE4AutoIt3.exe -ArgumentList /S -NoNewWindow -Wait
+      - name: Compile # this just compiles, Start-Process is used because AutoIt returns to CMD before finishing. Definitely much better solution than start-sleep used before.
+        run: |
+          Start-Process "${env:ProgramFiles(x86)}\AutoIt3\AutoIt3.exe" "`"${env:ProgramFiles(x86)}\AutoIt3\SciTE\AutoIt3Wrapper\AutoIt3Wrapper.au3`" /NoStatus /prod /in WhyNotWin11.au3" -NoNewWindow -Wait
+          sha256sum -b WhyNotWin*.exe > checksums.sha256 # output shasums of file so people are sure that the files are genuine 
+      - uses: actions/upload-artifact@v2 # uploads artifacts so they can be accessed to download
+        with:
+          name: WNW11
+          path: |
+            WhyNotWin11*.exe
+            checksums.sha256
+          if-no-files-found: error # error if no files found, default is warn, error also sends you email by default
+      - name: Zip package # this step creates one zip with all files
+        if: startsWith(github.ref, 'refs/tags/') # runs setp only on release (github tag)
+        run: 7z a WhyNotWin11.zip WhyNotWin11*.exe checksums.sha256 # this uses 7z to make the zip
+      - name: Release # uploads files specified below on release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            WhyNotWin11*.exe
+            WhyNotWin11.zip
+            checksums.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
