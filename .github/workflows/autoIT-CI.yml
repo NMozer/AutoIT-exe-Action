@@ -29,7 +29,7 @@ jobs:
           Start-Process SciTE4AutoIt3.exe -ArgumentList /S -NoNewWindow -Wait
       - name: Compile # this just compiles, Start-Process is used because AutoIt returns to CMD before finishing. Definitely much better solution than start-sleep used before.
         run: |
-          Start-Process "${env:ProgramFiles(x86)}\AutoIt3\AutoIt3.exe" "`"${env:ProgramFiles(x86)}\AutoIt3\SciTE\AutoIt3Wrapper\AutoIt3Wrapper.au3"` /NoStatus /prod /in WhyNotWin11.au3" -NoNewWindow -Wait
+          Start-Process "${env:ProgramFiles(x86)}\AutoIt3\AutoIt3.exe" "`"${env:ProgramFiles(x86)}\AutoIt3\SciTE\AutoIt3Wrapper\AutoIt3Wrapper.au3`" /NoStatus /prod /in WhyNotWin11.au3" -NoNewWindow -Wait
           sha256sum -b WhyNotWin*.exe > checksums.sha256 # output shasums of file so people are sure that the files are genuine 
       - uses: actions/upload-artifact@v2 # uploads artifacts so they can be accessed to download
         with:
